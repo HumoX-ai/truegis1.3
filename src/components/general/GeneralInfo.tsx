@@ -8,7 +8,7 @@ const GeneralInfo = () => {
       <p className="text-gray-500 text-sm font-semibold pt-2">
         Joy ma&#39;lumotlari
       </p>
-      <div className="mt-2 bg-white dark:bg-[#2B2B2B] p-4 rounded-xl">
+      <div className="mt-2 mb-2 bg-white dark:bg-[#2B2B2B] p-4 rounded-xl">
         {/* Manzil */}
         <div className="mb-2 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -81,10 +81,10 @@ const GeneralInfo = () => {
           <ChevronRight className="text-gray-500" />
         </div>
       </div>
-      <p className="text-gray-500 text-sm font-semibold pt-6">
+      <p className="text-gray-500 text-sm font-semibold">
         Ishlash vaqtlari va qulayliklar
       </p>
-      <div className="mt-2 bg-white dark:bg-[#2B2B2B] p-4 rounded-xl">
+      <div className="mt- bg-white dark:bg-[#2B2B2B] p-4 rounded-xl">
         <div className="mb-2 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Image src="/icons/time.svg" alt="vaqt" width={40} height={40} />
