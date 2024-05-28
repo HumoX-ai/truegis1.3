@@ -74,7 +74,11 @@ const GeneralInfo = ({ placeData }: { placeData: Place }) => {
   const router = useRouter();
 
   const handleMapClick = () => {
-    router.push(`/map?lat=${placeData.latitude}&lon=${placeData.longitude}`);
+    if (placeData.longitude && placeData.latitude) {
+      router.push(`/map?lat=${placeData.latitude}&lon=${placeData.longitude}`);
+    } else {
+      return;
+    }
   };
 
   const socialMedia = [
@@ -128,8 +132,9 @@ const GeneralInfo = ({ placeData }: { placeData: Place }) => {
             <div>
               <p className="font-bold">Manzil</p>
               <p className="text-gray-500">
-                {placeData.full_address.slice(0, 30) + "..." ||
-                  "Manzil mavjud emas"}
+                {placeData?.full_address?.length > 30
+                  ? `${placeData.full_address.slice(0, 28)}...`
+                  : placeData?.full_address || "Manzil mavjud emas"}
               </p>
             </div>
           </div>
@@ -195,8 +200,7 @@ const GeneralInfo = ({ placeData }: { placeData: Place }) => {
               <p className="font-bold">Web sayti</p>
               <p className="text-blue-500">
                 <a href={placeData.website || ""} className="hover:underline">
-                  {placeData.website.slice(0, 30) + "..." ||
-                    "Vebsayt mavjud emas"}
+                  {placeData?.website?.slice(0, 30) || "Vebsayt mavjud emas"}
                 </a>
               </p>
             </div>
@@ -216,7 +220,7 @@ const GeneralInfo = ({ placeData }: { placeData: Place }) => {
                 <p>
                   <span>
                     {getWorkingStatus(
-                      placeData.work_days,
+                      placeData?.work_days || [],
                       new Date().getDay(),
                       new Date().getHours()
                     )}

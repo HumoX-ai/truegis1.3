@@ -10,10 +10,6 @@ interface WorkDay {
   startTime: string;
 }
 
-interface PlaceData extends Place {
-  work_days: WorkDay[];
-}
-
 interface WorkTimeProps {
   params: {
     id: string;
@@ -23,7 +19,7 @@ interface WorkTimeProps {
 const WorkTime: React.FC<WorkTimeProps> = async ({ params }) => {
   const { id } = params;
 
-  const data: PlaceData | null = await fetchPlaceData(id);
+  const data: Place | null = await fetchPlaceData(id);
   console.log(data?.work_days);
 
   const daysOfWeek = [
@@ -52,7 +48,7 @@ const WorkTime: React.FC<WorkTimeProps> = async ({ params }) => {
           <UserProfile
             name={data?.name || ""}
             avatarSrc="/icons/logos.svg"
-            rating={4}
+            rating={data?.rating || 0}
             reviewCount={120}
           />
         </div>

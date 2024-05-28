@@ -1,23 +1,10 @@
 "use client";
 
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import L from "leaflet";
 import Image from "next/image";
-import "leaflet-providers"; // Import the leaflet-providers package
-
-// Customize the default marker icon (Leaflet uses images that won't load by default in Next.js)
-
-const customIcon = new L.Icon({
-  iconUrl: "/icons/locate.svg",
-  iconRetinaUrl: "/icons/locate.svg",
-  iconSize: [100, 100], // Icon size
-  iconAnchor: [50, 50], // Anchor point
-  popupAnchor: [0, -50], // Popup position
-  tooltipAnchor: [16, -28], // Tooltip position
-});
+import { YMaps, Placemark, Map } from "@pbe/react-yandex-maps";
 
 const MapPage = () => {
   const searchParams = useSearchParams();
@@ -29,18 +16,22 @@ const MapPage = () => {
 
   return (
     <div className="relative w-full h-screen light:bg-[#EFEFF4] dark:bg-black bg-[#EFEFF4]">
-      <MapContainer
-        center={[latitude, longitude]}
-        zoom={15}
-        scrollWheelZoom={false}
-        className="w-full h-[80%]"
-      >
-        <TileLayer
-          // Replace the above URL with the Yandex Maps tile layer URL
-          url="https://core-renderer-tiles.maps.yandex.net/tiles?l=map&v=21.05.12-0&x={x}&y={y}&z={z}&scale=1.0&lang=en_US"
-        />
-        <Marker position={[latitude, longitude]} icon={customIcon} />
-      </MapContainer>
+      <YMaps query={{ apikey: "e4384fdc-6d2e-4c6d-90e6-28c788ec8129" }}>
+        <Map
+          defaultState={{ center: [latitude, longitude], zoom: 15 }}
+          className="h-[90%]"
+        >
+          <Placemark
+            geometry={[latitude, longitude]}
+            options={{
+              iconLayout: "default#image",
+              iconImageHref: "/icons/locate.svg",
+              iconImageSize: [100, 100],
+              iconImageOffset: [-50, -50],
+            }}
+          />
+        </Map>
+      </YMaps>
       <div className="m-2 rounded-lg p-2 space-y-2 flex items-end justify-between bg-white dark:bg-[#1C1C1D]">
         <Link
           href={`https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`}

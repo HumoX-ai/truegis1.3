@@ -23,7 +23,7 @@ const Convenience: React.FC<ConvenienceProps> = async ({ params }) => {
         <div className="dark:bg-[#1C1C1D] bg-white py-6 px-3 rounded-xl mt-4">
           <UserProfile
             name={data?.name || ""}
-            rating={4}
+            rating={data?.rating || 0}
             reviewCount={120}
             avatarSrc="/icons/logos.svg"
           />

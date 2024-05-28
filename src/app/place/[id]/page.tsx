@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 export async function fetchPlaceData(id: string): Promise<Place | null> {
-  const response = await fetch(`https://admin13.uz/api/new-place/${id}/`);
+  const response = await fetch(`https://admin13.uz/api/place/${id}/`);
   if (!response.ok) {
     return null;
   }

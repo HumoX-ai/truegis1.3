@@ -19,9 +19,12 @@ const DetailsSection = ({ placeData }: { placeData: Place }) => {
         <div className="flex flex-col gap-3">
           <h2 className="text-xl font-medium">{placeData.name}</h2>
           <div className="flex gap-2 items-center">
-            <RatingReview rating={4} setRating={() => {}} />
+            <RatingReview
+              rating={placeData?.rating || 0}
+              setRating={() => {}}
+            />
             <p className="text-gray-500 font-medium text-sm pt-1">
-              {4} (120 ta sharh)
+              {placeData?.rating || 0} (120 ta sharh)
             </p>
           </div>
         </div>
