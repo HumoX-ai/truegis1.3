@@ -5,8 +5,9 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { YMaps, Placemark, Map } from "@pbe/react-yandex-maps";
+import React, { Suspense } from "react";
 
-const MapPage = () => {
+const MapComponent = () => {
   const searchParams = useSearchParams();
   const lat = searchParams.get("lat");
   const lon = searchParams.get("lon");
@@ -103,6 +104,14 @@ const MapPage = () => {
         </Link>
       </div>
     </div>
+  );
+};
+
+const MapPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MapComponent />
+    </Suspense>
   );
 };
 
