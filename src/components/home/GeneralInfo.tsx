@@ -85,27 +85,27 @@ const GeneralInfo = ({ placeData }: { placeData: Place }) => {
     {
       name: "instagram",
       url: placeData.instagram,
-      icon: "/icons/social_media/instagram.svg",
+      icon: "/icons/social_media/Instagram.svg",
     },
     {
       name: "twitter",
       url: placeData.twitter,
-      icon: "/icons/social_media/twitter.svg",
+      icon: "/icons/social_media/Twitter.svg",
     },
     {
       name: "youtube",
       url: placeData.youtube,
-      icon: "/icons/social_media/youtube.svg",
+      icon: "/icons/social_media/Youtube.svg",
     },
     {
       name: "telegram",
       url: placeData.telegram,
-      icon: "/icons/social_media/telegram.svg",
+      icon: "/icons/social_media/Telegram.svg",
     },
     {
       name: "facebook",
       url: placeData.facebook,
-      icon: "/icons/social_media/facebook.svg",
+      icon: "/icons/social_media/Facebook.svg",
     },
   ];
 
