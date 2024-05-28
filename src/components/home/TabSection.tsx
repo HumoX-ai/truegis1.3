@@ -2,13 +2,14 @@
 import React from "react";
 import { Tab, Tabs } from "@nextui-org/react";
 import GeneralInfo from "./GeneralInfo";
+import { Place } from "@/types/place";
 
-const TabsSection = () => {
+const TabsSection = ({ placeData }: { placeData: Place }) => {
   return (
-    <div className="mt-4">
+    <div className="mt-9">
       <Tabs aria-label="Options" fullWidth size="lg">
         <Tab key="general" title="Umumiy">
-          <GeneralInfo />
+          <GeneralInfo placeData={placeData} />
         </Tab>
         <Tab key="comments" title="Sharhlar">
           <p>Sharhlar section content...</p>

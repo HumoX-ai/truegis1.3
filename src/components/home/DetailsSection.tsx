@@ -3,26 +3,25 @@ import React, { useState } from "react";
 import { User } from "@nextui-org/react";
 import { Button } from "@nextui-org/button";
 import RatingReview from "@/components/ratingReview";
+import { Place } from "@/types/place";
 
-const DetailsSection = () => {
-  const [rating, setRating] = useState(3);
-
+const DetailsSection = ({ placeData }: { placeData: Place }) => {
   return (
-    <div className="bg-white dark:bg-[#2B2B2B] py-8 px-4 rounded-xl mt-4">
+    <div className="bg-white dark:bg-[rgb(28,28,29)] py-6 px-3 rounded-xl mt-4">
       <div className="flex items-center gap-2">
         <User
           name=""
           avatarProps={{
-            src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+            src: "/icons/logos.svg",
             size: "lg",
           }}
         />
-        <div>
-          <h2 className="text-xl font-medium">KFC Chilonzor filiali</h2>
+        <div className="flex flex-col gap-3">
+          <h2 className="text-xl font-medium">{placeData.name}</h2>
           <div className="flex gap-2 items-center">
-            <RatingReview rating={rating} setRating={setRating} />
-            <p className="text-gray-500 font-medium text-sm">
-              4.0 (100 sharhlar)
+            <RatingReview rating={4} setRating={() => {}} />
+            <p className="text-gray-500 font-medium text-sm pt-1">
+              {4} (120 ta sharh)
             </p>
           </div>
         </div>
