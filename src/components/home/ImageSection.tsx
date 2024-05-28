@@ -82,7 +82,7 @@ const ImageSection = ({ placeData }: { placeData: Place }) => {
           width={340}
           height={340}
           className="h-64 w-full object-cover shadow-lg"
-          src={placeData.image || "/icons/logos.svg"}
+          src={placeData.photo_url || "/icons/logos.svg"}
           alt="Place"
         />
         <div className="absolute bottom-0 w-full h-full bg-gradient-to-t from-black/80 to-transparent"></div>

@@ -14,6 +14,7 @@ export interface Place {
   instagram?: string | null;
   telegram?: string | null;
   telegram_bot?: string | null;
+  photo_url?: string | null;
   facebook?: string | null;
   twitter?: string | null;
   youtube?: string | null;

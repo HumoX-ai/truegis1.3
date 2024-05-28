@@ -20,7 +20,7 @@ const MapComponent = () => {
       <YMaps query={{ apikey: "e4384fdc-6d2e-4c6d-90e6-28c788ec8129" }}>
         <Map
           defaultState={{ center: [latitude, longitude], zoom: 15 }}
-          className="h-[90%]"
+          className="h-[85vh]"
         >
           <Placemark
             geometry={[latitude, longitude]}
@@ -33,7 +33,7 @@ const MapComponent = () => {
           />
         </Map>
       </YMaps>
-      <div className="m-2 rounded-lg p-2 space-y-2 flex items-end justify-between bg-white dark:bg-[#1C1C1D]">
+      <div className="m-4 rounded-lg p-2 space-y-2 relative flex items-end justify-between bg-white dark:bg-[#1C1C1D]">
         <Link
           href={`https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`}
           legacyBehavior
