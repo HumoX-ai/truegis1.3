@@ -13,63 +13,54 @@ interface WorkDay {
   startTime: string;
 }
 
-const getWorkingStatus = (
+function getWorkingStatus(
   workDays: WorkDay[],
   currentDay: number,
   currentTime: number
-) => {
-  const isOpen = workDays.some(
-    (day) =>
-      day.dayOfWeek === currentDay &&
-      currentTime >= parseInt(day.startTime.split(":")[0]) &&
-      currentTime < parseInt(day.endTime.split(":")[0])
-  );
+) {
+  // currentDay 0 (yakshanba) dan 6 (shanba) gacha bo'lsa, uni 1 (dushanba) dan 7 (yakshanba) ga o'zgartiramiz
+  currentDay = currentDay === 0 ? 7 : currentDay;
 
-  const closingTime = workDays.find(
-    (day) => day.dayOfWeek === currentDay
-  )?.endTime;
+  // Ish kunlarini ko'rib chiqamiz
+  for (let i = 0; i < workDays.length; i++) {
+    let workDay = workDays[i];
 
-  if (isOpen) {
-    return (
-      <div>
-        <p className="font-bold">Ishlash vaqtlari</p>
-        <p className="text-gray-500">
-          <span className="text-green-500">Ochiq</span>{" "}
-          {`(${closingTime} gacha)`}
-        </p>
-      </div>
-    );
-  } else {
-    const nextOpeningDay = workDays.find(
-      (day) =>
-        day.dayOfWeek > currentDay || (day.dayOfWeek === 0 && currentDay === 6)
-    );
-    const dayNames = [
-      "Yakshanba",
-      "Dushanba",
-      "Seshanba",
-      "Chorshanba",
-      "Payshanba",
-      "Juma",
-      "Shanba",
-    ];
-    const nextOpeningDayName = nextOpeningDay
-      ? dayNames[nextOpeningDay.dayOfWeek]
-      : "Keyingi ochilish kunini aniqlay olmadim";
-    const nextOpeningTime = nextOpeningDay?.startTime || "00:00";
+    // Agar hozirgi kun ish kuniga to'g'ri kelsa
+    if (workDay.dayOfWeek === currentDay) {
+      let startTime = parseInt(workDay.startTime.split(":")[0]);
+      let endTime = parseInt(workDay.endTime.split(":")[0]);
 
-    return (
-      <div>
-        <p className="font-bold">Ishlash vaqtlari</p>
-        <p className="text-gray-500">
-          <span className="text-red-500">Yopiq</span>{" "}
-          {/* {`(${nextOpeningDayName}, ${nextOpeningTime} dan)`} */}
-        </p>
-      </div>
-    );
+      // Tungi vaqtlarda tugash vaqti 24 soatdan oshsa
+      if (endTime <= startTime) {
+        if (currentTime >= startTime || currentTime < endTime) {
+          return (
+            <div>
+              <p className="font-bold">Ishlash vaqtlari</p>
+              <p className="text-green-500">
+                Ochiq{" "}
+                <span className="text-gray-500">
+                  • {workDay.startTime}-{workDay.endTime}
+                </span>
+              </p>
+            </div>
+          );
+        }
+      } else {
+        if (currentTime >= startTime && currentTime < endTime) {
+          return `Ochiq (${workDay.startTime} dan ${workDay.endTime} gacha)`;
+        }
+      }
+    }
   }
-};
 
+  // Agar hech qaysi ish kuni va vaqt mos kelmasa, Yopiq qaytariladi
+  return (
+    <div>
+      <p className="font-bold">Ishlash vaqtlari</p>
+      <p className="text-red-500">Yopiq</p>
+    </div>
+  );
+}
 const GeneralInfo = ({ placeData }: { placeData: Place }) => {
   const router = useRouter();
 
@@ -269,25 +260,6 @@ const GeneralInfo = ({ placeData }: { placeData: Place }) => {
             <Image src={media.icon} width={48} height={48} alt={media.name} />
           </Button>
         ))}
-      </div>
-      <div className="mt-8 bg-white dark:bg-[#1C1C1D] p-4 rounded-xl">
-        <a href="https://t.me/TrueGisSupport_bot">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Image
-                src="/icons/question.svg"
-                alt="qulayliklar"
-                width={40}
-                height={40}
-              />
-              <div>
-                <p className="font-bold">Xatolik topildimi</p>
-                <p className="text-gray-500">Biz bilan bog&#39;laning</p>
-              </div>
-            </div>
-            <ChevronRight className="text-gray-500" />
-          </div>
-        </a>
       </div>
     </>
   );

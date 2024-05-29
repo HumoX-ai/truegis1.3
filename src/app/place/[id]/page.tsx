@@ -26,6 +26,7 @@ const Place: React.FC<{ params: { id: string } }> = async ({ params }) => {
   if (!placeData) {
     notFound();
   }
+console.log(placeData);
 
   return (
     <div className="mx-auto shadow-md overflow-hidden md:max-w-md relative">

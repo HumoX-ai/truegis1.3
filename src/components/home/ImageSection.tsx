@@ -12,28 +12,47 @@ interface WorkDay {
   startTime: string;
 }
 
-const getWorkingStatus = (
+function getWorkingStatus(
   workDays: WorkDay[],
   currentDay: number,
   currentTime: number
-) => {
-  const isOpen = workDays.some(
-    (day) =>
-      day.dayOfWeek === currentDay &&
-      currentTime >= parseInt(day.startTime.split(":")[0]) &&
-      currentTime < parseInt(day.endTime.split(":")[0])
-  );
+) {
+  // currentDay 0 (yakshanba) dan 6 (shanba) gacha bo'lsa, uni 1 (dushanba) dan 7 (yakshanba) ga o'zgartiramiz
+  currentDay = currentDay === 0 ? 7 : currentDay;
 
-  const closingTime = workDays.find(
-    (day) => day.dayOfWeek === currentDay
-  )?.endTime;
+  // Ish kunlarini ko'rib chiqamiz
+  for (let i = 0; i < workDays.length; i++) {
+    let workDay = workDays[i];
 
-  if (isOpen && closingTime) {
-    return `Ochiq (${closingTime} gacha)`;
-  } else {
-    return "Yopiq";
+    // Agar hozirgi kun ish kuniga to'g'ri kelsa
+    if (workDay.dayOfWeek === currentDay) {
+      let startTime = parseInt(workDay.startTime.split(":")[0]);
+      let endTime = parseInt(workDay.endTime.split(":")[0]);
+
+      // Tungi vaqtlarda tugash vaqti 24 soatdan oshsa
+      if (endTime <= startTime) {
+        if (currentTime >= startTime || currentTime < endTime) {
+          return (
+            <span>
+              {workDay.startTime}-{workDay.endTime}
+            </span>
+          );
+        }
+      } else {
+        if (currentTime >= startTime && currentTime < endTime) {
+          return (
+            <span>
+              {workDay.startTime}-{workDay.endTime}
+            </span>
+          );
+        }
+      }
+    }
   }
-};
+
+  // Agar hech qaysi ish kuni va vaqt mos kelmasa, Yopiq qaytariladi
+  return <span>Yopiq</span>;
+}
 
 const handleShare = (placeData: Place) => {
   if (navigator.share) {
@@ -71,10 +90,6 @@ const ImageSection = ({ placeData }: { placeData: Place }) => {
       )
     : "Yopiq";
 
-  const buttonColor = workingStatus.includes("Ochiq")
-    ? "bg-green-500"
-    : "bg-red-500";
-
   return (
     <div className="relative">
       <div className="relative overflow-hidden">
@@ -82,13 +97,15 @@ const ImageSection = ({ placeData }: { placeData: Place }) => {
           width={340}
           height={340}
           className="h-64 w-full object-cover shadow-lg"
-          src={placeData.photo_url || "/icons/logos.svg"}
+          src={placeData.photo_url || placeData.image || "/icons/logos.svg"}
           alt="Place"
         />
         <div className="absolute bottom-0 w-full h-full bg-gradient-to-t from-black/80 to-transparent"></div>
       </div>
       <Button
-        className={`absolute bottom-12 left-6 ${buttonColor} text-white px-6 rounded-lg text-medium`}
+        className={`absolute bottom-12 left-6 ${
+          workingStatus === "Yopiq" ? "bg-red-500" : "bg-green-500"
+        } text-white px-6 rounded-lg text-medium`}
       >
         {workingStatus}
       </Button>

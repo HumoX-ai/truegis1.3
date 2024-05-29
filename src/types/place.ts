@@ -4,6 +4,7 @@ export interface Place {
   phone: string;
   phone2?: string | null;
   image?: string | null;
+  images?: string[] | null;
   latitude: number;
   longitude: number;
   place_type: string[];
