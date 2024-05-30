@@ -1,8 +1,8 @@
 import React from "react";
-import { fetchPlaceData } from "../page";
 import { Place } from "@/types/place";
 import WorkTimeItem from "@/components/work-time/WorkTimeItem";
 import UserProfile from "@/components/work-time/UserProfile";
+import { fetchPlaceData } from "@/lib/fetchPlaceData";
 
 interface WorkDay {
   endTime: string;

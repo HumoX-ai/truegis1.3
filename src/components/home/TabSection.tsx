@@ -2,13 +2,19 @@
 import React from "react";
 import { Tab, Tabs } from "@nextui-org/react";
 import GeneralInfo from "./GeneralInfo";
-import { Place } from "@/types/place";
+import { Place, PlaceComments } from "@/types/place";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import Comments from "../comments";
 import Images from "../images";
 
-const TabsSection = ({ placeData }: { placeData: Place }) => {
+const TabsSection = ({
+  placeData,
+  placeComments,
+}: {
+  placeData: Place;
+  placeComments: PlaceComments[];
+}) => {
   return (
     <div className="mt-9">
       <Tabs aria-label="Options" fullWidth size="lg">
@@ -16,7 +22,7 @@ const TabsSection = ({ placeData }: { placeData: Place }) => {
           <GeneralInfo placeData={placeData} />
         </Tab>
         <Tab key="comments" title="Sharhlar">
-          <Comments placeData={placeData} />
+          <Comments placeData={placeData} placeComments={placeComments} />
         </Tab>
         <Tab key="pictures" title="Rasmlar">
           <Images placeData={placeData} />

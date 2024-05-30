@@ -48,3 +48,23 @@ export type WorkDay = {
   startTime: string;
   endTime: string;
 };
+
+export interface PlaceComments {
+  length: number;
+  id: number;
+  place: number;
+  user: User;
+  star: number | null;
+  text: string | null;
+  created_time: string;
+  results: any[];
+}
+
+interface User {
+  id: number;
+  full_name: string;
+  username: string;
+  telegram_id: string;
+  lang: string;
+  profile_photo_url: string | null;
+}

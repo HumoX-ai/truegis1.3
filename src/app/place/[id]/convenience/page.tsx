@@ -1,9 +1,9 @@
 import React from "react";
-import { fetchPlaceData } from "../page";
 import { Place } from "@/types/place";
 import UserProfile from "@/components/work-time/UserProfile";
 import ConvenienceItem from "@/components/convenience/ConvenienceItem";
 import ErrorLink from "@/components/convenience/ErrorLink";
+import { fetchPlaceData } from "@/lib/fetchPlaceData";
 
 interface ConvenienceProps {
   params: {
