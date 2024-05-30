@@ -4,14 +4,19 @@ import TabsSection from "@/components/home/TabSection";
 import Loading from "@/components/Loader";
 import type { Place } from "@/types/place";
 import { notFound } from "next/navigation";
-import React from "react";
+import axios from "axios";
 
 export async function fetchPlaceData(id: string): Promise<Place | null> {
-  const response = await fetch(`https://admin13.uz/api/place/${id}/`);
-  if (!response.ok) {
+  try {
+    const response = await axios.get(`https://admin13.uz/api/place/${id}/`);
+    if (response.status !== 200) {
+      return null;
+    }
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching place data:", error);
     return null;
   }
-  return response.json();
 }
 
 const Place: React.FC<{ params: { id: string } }> = async ({ params }) => {
@@ -26,10 +31,10 @@ const Place: React.FC<{ params: { id: string } }> = async ({ params }) => {
   if (!placeData) {
     notFound();
   }
-console.log(placeData);
 
+  console.log(placeData);
   return (
-    <div className="mx-auto shadow-md overflow-hidden md:max-w-md relative">
+    <div className="mx-auto overflow-hidden md:max-w-md relative">
       {placeData ? (
         <>
           <ImageSection placeData={placeData} />

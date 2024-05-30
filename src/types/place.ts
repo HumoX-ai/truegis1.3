@@ -1,10 +1,18 @@
+export interface Image {
+  id: number;
+  image: string;
+  created: string;
+  place: number;
+  user: number;
+}
+
 export interface Place {
   id: number;
   name: string;
   phone: string;
   phone2?: string | null;
   image?: string | null;
-  images?: string[] | null;
+  images?: Image[] | null;
   latitude: number;
   longitude: number;
   place_type: string[];

@@ -1,6 +1,7 @@
-import { Place } from "@/types/place";
-import Image from "next/image";
+import { Place, Image as ImageType } from "@/types/place";
+import { Image, Modal } from "@nextui-org/react";
 import { useTheme } from "next-themes";
+import { useState } from "react";
 
 const Images = ({ placeData }: { placeData: Place }) => {
   const { theme } = useTheme();
@@ -26,20 +27,18 @@ const Images = ({ placeData }: { placeData: Place }) => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {placeData?.images && placeData.images.length > 0
-          ? placeData.images.map((photo, index) => (
-              <div key={index}>
-                <Image
-                  src={photo}
-                  alt="photo"
-                  width={130}
-                  height={130}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))
-          : null}
+      <div className="grid grid-cols-3 gap-4">
+        {placeData.images.map((photo: ImageType, index: number) => (
+          <div key={index} className="w-full flex items-stretch">
+            <Image
+              width={130}
+              height={130}
+              src={photo.image}
+              alt={`photo ${index}`}
+              className="w-full h-full object-cover shadow-lg rounded-none cursor-pointer"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

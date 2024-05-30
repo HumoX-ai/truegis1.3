@@ -90,6 +90,10 @@ const ImageSection = ({ placeData }: { placeData: Place }) => {
       )
     : "Yopiq";
 
+  const workingStatusProps: any = React.isValidElement(workingStatus)
+    ? workingStatus.props
+    : null;
+
   return (
     <div className="relative">
       <div className="relative overflow-hidden">
@@ -104,7 +108,9 @@ const ImageSection = ({ placeData }: { placeData: Place }) => {
       </div>
       <Button
         className={`absolute bottom-12 left-6 ${
-          workingStatus === "Yopiq" ? "bg-red-500" : "bg-green-500"
+          workingStatusProps && workingStatusProps.children === "Yopiq"
+            ? "bg-red-500"
+            : "bg-green-500"
         } text-white px-6 rounded-lg text-medium`}
       >
         {workingStatus}
