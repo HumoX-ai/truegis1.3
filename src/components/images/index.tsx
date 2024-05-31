@@ -35,7 +35,7 @@ const Images = ({ placeData }: { placeData: Place }) => {
               height={130}
               src={photo.image}
               alt={`photo ${index}`}
-              className="w-full h-full object-cover shadow-lg rounded-none cursor-pointer"
+              className="w-full h-full object-cover shadow-lg rounded-none"
             />
           </div>
         ))}
