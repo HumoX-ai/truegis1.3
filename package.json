@@ -24,6 +24,7 @@
     "nextjs-toploader": "^1.6.12",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.51.5",
     "react-leaflet": "^4.2.1",
     "react-rating-stars-component": "^2.2.0",
     "react-simple-star-rating": "^5.1.7",

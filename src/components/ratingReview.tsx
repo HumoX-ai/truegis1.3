@@ -1,9 +1,11 @@
 function RatingReview({
   rating,
   setRating,
+  size = 22,
 }: {
   rating: number;
   setRating: React.Dispatch<React.SetStateAction<number>>;
+  size?: number;
 }) {
   return (
     <div>
@@ -15,14 +17,13 @@ function RatingReview({
             style={{
               cursor: "pointer",
               color: rating >= star ? "#FF9500" : "#C8C7CB",
-              fontSize: `22px`,
+              fontSize: `${size}px`,
             }}
             onClick={() => {
               setRating(star);
             }}
           >
-            {""}
-            ★{""}
+            {""}★{""}
           </span>
         );
       })}

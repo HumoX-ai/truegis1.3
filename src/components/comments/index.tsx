@@ -1,7 +1,9 @@
 import { Place, PlaceComments } from "@/types/place";
 import RatingReview from "../ratingReview";
-import { Avatar, Image } from "@nextui-org/react";
+import { Avatar, Button, Image } from "@nextui-org/react";
 import { useTheme } from "next-themes";
+import { SendIcon } from "lucide-react";
+import Link from "next/link";
 
 const Comments = ({
   placeData,
@@ -55,6 +57,19 @@ const Comments = ({
             </div>
           </div>
         </div>
+      </div>
+      <p className="text-gray-500 text-md font-medium pt-6 px-4">
+        Sharh qoldirish
+      </p>
+      <div className="mt-2 bg-white dark:bg-[#1C1C1D] px-4 py-5 rounded-xl">
+        <Link href={`/place/${placeData.id}/add-comment`}>
+          <Button
+            fullWidth
+            className="py-7 font-medium text-[#007AFF] text-medium bg-[#007AFF]/15"
+          >
+            <SendIcon className="mr-2" /> Sharh yozish
+          </Button>
+        </Link>
       </div>
       <p className="text-gray-500 text-md font-medium pt-6 px-4">Sharhlar</p>
       <div className="mt-2 bg-white dark:bg-[#1C1C1D] rounded-xl">
