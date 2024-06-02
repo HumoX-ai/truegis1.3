@@ -111,8 +111,8 @@ const ImageSection = ({ placeData }: { placeData: Place }) => {
       <Button
         className={`absolute bottom-12 left-6 ${
           workingStatusProps?.children || workingStatus === "Yopiq"
-            ? "bg-red-500"
-            : "bg-green-500"
+            ? "bg-green-500"
+            : "bg-red-500"
         } text-white px-6 rounded-lg text-medium`}
       >
         {workingStatus}

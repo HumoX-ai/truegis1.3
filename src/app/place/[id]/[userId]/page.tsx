@@ -7,8 +7,10 @@ import { notFound } from "next/navigation";
 import { fetchPlaceData } from "@/lib/fetchPlaceData";
 import { fetchPlaceComments } from "@/lib/fetchPlaceComments";
 
-const Place: React.FC<{ params: { id: string } }> = async ({ params }) => {
-  const { id } = params;
+const Place: React.FC<{ params: { id: string; userId: number } }> = async ({
+  params,
+}) => {
+  const { id, userId } = params;
 
   const placeDataPromise = fetchPlaceData(id);
   const placeData = await placeDataPromise;
@@ -32,7 +34,7 @@ const Place: React.FC<{ params: { id: string } }> = async ({ params }) => {
               placeData={placeData}
               commentCount={placeDataCommentsCount}
             />
-            <TabsSection placeData={placeData} placeComments={placeComments!} />
+            <TabsSection placeData={placeData} placeComments={placeComments!} userId={userId} />
           </div>
         </>
       ) : (

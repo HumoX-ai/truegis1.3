@@ -11,9 +11,11 @@ import Images from "../images";
 const TabsSection = ({
   placeData,
   placeComments,
+  userId,
 }: {
   placeData: Place;
   placeComments: PlaceComments[];
+  userId: number;
 }) => {
   return (
     <div className="mt-9">
@@ -22,7 +24,7 @@ const TabsSection = ({
           <GeneralInfo placeData={placeData} />
         </Tab>
         <Tab key="comments" title="Sharhlar">
-          <Comments placeData={placeData} placeComments={placeComments} />
+          <Comments placeData={placeData} placeComments={placeComments} userId={userId} />
         </Tab>
         <Tab key="pictures" title="Rasmlar">
           <Images placeData={placeData} />
