@@ -16,6 +16,8 @@ const Place: React.FC<{ params: { id: string } }> = async ({ params }) => {
   const placeDataComments = fetchPlaceComments(id);
   const placeComments = await placeDataComments;
 
+  const placeDataCommentsCount = placeComments?.length || 0;
+
   if (!placeData) {
     notFound();
   }
@@ -26,7 +28,10 @@ const Place: React.FC<{ params: { id: string } }> = async ({ params }) => {
         <>
           <ImageSection placeData={placeData} />
           <div className="relative p-4 rounded-t-3xl -mt-6 z-50 light:bg-[#EFEFF4] dark:bg-black bg-[#EFEFF4]">
-            <DetailsSection placeData={placeData} />
+            <DetailsSection
+              placeData={placeData}
+              commentCount={placeDataCommentsCount}
+            />
             <TabsSection placeData={placeData} placeComments={placeComments!} />
           </div>
         </>

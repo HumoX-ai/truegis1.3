@@ -19,7 +19,7 @@ const MapComponent = () => {
     <div className="relative w-full h-screen light:bg-[#EFEFF4] dark:bg-black bg-[#EFEFF4]">
       <YMaps query={{ apikey: "e4384fdc-6d2e-4c6d-90e6-28c788ec8129" }}>
         <Map
-          defaultState={{ center: [latitude, longitude], zoom: 15 }}
+          defaultState={{ center: [latitude, longitude], zoom: 20 }}
           className="h-[85vh]"
         >
           <Placemark

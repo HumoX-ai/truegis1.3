@@ -5,7 +5,13 @@ import { Button } from "@nextui-org/button";
 import RatingReview from "@/components/ratingReview";
 import { Place } from "@/types/place";
 
-const DetailsSection = ({ placeData }: { placeData: Place }) => {
+const DetailsSection = ({
+  placeData,
+  commentCount,
+}: {
+  placeData: Place;
+  commentCount: number;
+}) => {
   return (
     <div className="bg-white dark:bg-[rgb(28,28,29)] py-6 px-3 rounded-xl mt-4">
       <div className="flex items-center gap-2">
@@ -24,7 +30,7 @@ const DetailsSection = ({ placeData }: { placeData: Place }) => {
               setRating={() => {}}
             />
             <p className="text-gray-500 font-medium text-sm pt-1">
-              {placeData?.rating || 0} (120 ta sharh)
+              {placeData?.rating || 0} ({commentCount} ta sharh)
             </p>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { Divider } from "@nextui-org/react";
 
 interface ConvenienceItemProps {
   convenience: string;
@@ -22,7 +23,7 @@ const ConvenienceItem: React.FC<ConvenienceItemProps> = ({ convenience }) => {
           {convenience ? "Mavjud" : "Mavjud emas"}
         </p>
       </div>
-      <hr />
+      <Divider />
     </div>
   );
 };

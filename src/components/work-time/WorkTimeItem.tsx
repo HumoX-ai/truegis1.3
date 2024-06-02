@@ -1,3 +1,4 @@
+import { Divider } from "@nextui-org/react";
 import React from "react";
 
 interface WorkTimeItemProps {
@@ -19,7 +20,7 @@ const WorkTimeItem: React.FC<WorkTimeItemProps> = ({
           {startTime && endTime ? `${startTime} - ${endTime}` : "Yopiq"}
         </p>
       </div>
-      <hr />
+      <Divider />
     </div>
   );
 };

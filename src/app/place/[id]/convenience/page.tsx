@@ -1,9 +1,10 @@
 import React from "react";
-import { Place } from "@/types/place";
+import { Place, PlaceComments } from "@/types/place";
 import UserProfile from "@/components/work-time/UserProfile";
 import ConvenienceItem from "@/components/convenience/ConvenienceItem";
 import ErrorLink from "@/components/convenience/ErrorLink";
 import { fetchPlaceData } from "@/lib/fetchPlaceData";
+import { fetchPlaceComments } from "@/lib/fetchPlaceComments";
 
 interface ConvenienceProps {
   params: {
@@ -15,6 +16,7 @@ const Convenience: React.FC<ConvenienceProps> = async ({ params }) => {
   const { id } = params;
 
   const data: Place | null = await fetchPlaceData(id);
+  const commentCount: PlaceComments[] | null = await fetchPlaceComments(id);
   console.log(data?.about);
 
   return (
@@ -24,7 +26,7 @@ const Convenience: React.FC<ConvenienceProps> = async ({ params }) => {
           <UserProfile
             name={data?.name || ""}
             rating={data?.rating || 0}
-            reviewCount={120}
+            reviewCount={commentCount?.length || 0}
             avatarSrc="/icons/logos.svg"
           />
         </div>

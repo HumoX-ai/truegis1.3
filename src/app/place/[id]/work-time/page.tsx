@@ -1,8 +1,9 @@
 import React from "react";
-import { Place } from "@/types/place";
+import { Place, PlaceComments } from "@/types/place";
 import WorkTimeItem from "@/components/work-time/WorkTimeItem";
 import UserProfile from "@/components/work-time/UserProfile";
 import { fetchPlaceData } from "@/lib/fetchPlaceData";
+import { fetchPlaceComments } from "@/lib/fetchPlaceComments";
 
 interface WorkDay {
   endTime: string;
@@ -20,6 +21,7 @@ const WorkTime: React.FC<WorkTimeProps> = async ({ params }) => {
   const { id } = params;
 
   const data: Place | null = await fetchPlaceData(id);
+  const commentCount: PlaceComments[] | null = await fetchPlaceComments(id);
   console.log(data?.work_days);
 
   const daysOfWeek = [
@@ -49,7 +51,7 @@ const WorkTime: React.FC<WorkTimeProps> = async ({ params }) => {
             name={data?.name || ""}
             avatarSrc="/icons/logos.svg"
             rating={data?.rating || 0}
-            reviewCount={120}
+            reviewCount={commentCount?.length || 0}
           />
         </div>
         <p className="text-gray-500 text-md font-semibold pt-6 px-4">

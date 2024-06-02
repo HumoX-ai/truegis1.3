@@ -6,6 +6,7 @@ import { Place } from "@/types/place";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@nextui-org/button";
+import { Divider } from "@nextui-org/react";
 
 interface WorkDay {
   endTime: string;
@@ -61,7 +62,7 @@ function getWorkingStatus(
     </div>
   );
 }
-const GeneralInfo = ({ placeData }: { placeData: Place }) => {
+const GeneralInfo = ({ placeData, }: { placeData: Place }) => {
   const router = useRouter();
 
   const handleMapClick = () => {
@@ -131,7 +132,7 @@ const GeneralInfo = ({ placeData }: { placeData: Place }) => {
           </div>
           <ChevronRight className="text-gray-500" />
         </div>
-        <hr />
+        <Divider />
         {/* Manzilgacha Yandex-taxi */}
         <div className="mb-2 mt-2 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -143,7 +144,7 @@ const GeneralInfo = ({ placeData }: { placeData: Place }) => {
           </div>
           <ChevronRight className="text-gray-500" />
         </div>
-        <hr />
+        <Divider />
         {/* Aloqa raqami */}
         <div className="mb-2 mt-2 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -160,7 +161,7 @@ const GeneralInfo = ({ placeData }: { placeData: Place }) => {
           </div>
           <ChevronRight className="text-gray-500" />
         </div>
-        <hr />
+        <Divider />
         {/* Qo'shimcha aloqa raqami */}
         <div className="mb-2 mt-2 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -177,7 +178,7 @@ const GeneralInfo = ({ placeData }: { placeData: Place }) => {
           </div>
           <ChevronRight className="text-gray-500" />
         </div>
-        <hr />
+        <Divider />
         {/* Web sayti */}
         <div className="mt-2 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -222,7 +223,7 @@ const GeneralInfo = ({ placeData }: { placeData: Place }) => {
             <ChevronRight className="text-gray-500" />
           </div>
         </Link>
-        <hr />
+        <Divider />
         <Link href={`/place/${placeData.id}/convenience`}>
           <div className="mt-2 flex items-center justify-between">
             <div className="flex items-center gap-3">
