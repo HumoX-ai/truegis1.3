@@ -6,6 +6,7 @@ import Loading from "@/components/Loader";
 import { notFound } from "next/navigation";
 import { fetchPlaceData } from "@/lib/fetchPlaceData";
 import { fetchPlaceComments } from "@/lib/fetchPlaceComments";
+import { fetchPlacePromotions } from "@/lib/fetchPlacePromotions";
 
 const Place: React.FC<{ params: { id: string; userId: number } }> = async ({
   params,
@@ -19,6 +20,8 @@ const Place: React.FC<{ params: { id: string; userId: number } }> = async ({
   const placeComments = await placeDataComments;
 
   const placeDataCommentsCount = placeComments?.length || 0;
+
+  const placeDataPromotions = await fetchPlacePromotions(id);
 
   if (!placeData) {
     notFound();
@@ -34,7 +37,12 @@ const Place: React.FC<{ params: { id: string; userId: number } }> = async ({
               placeData={placeData}
               commentCount={placeDataCommentsCount}
             />
-            <TabsSection placeData={placeData} placeComments={placeComments!} userId={userId} />
+            <TabsSection
+              placeData={placeData}
+              placeComments={placeComments!}
+              userId={userId}
+              placeDataPromotions={placeDataPromotions!}
+            />
           </div>
         </>
       ) : (

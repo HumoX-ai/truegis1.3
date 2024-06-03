@@ -94,8 +94,6 @@ const ImageSection = ({ placeData }: { placeData: Place }) => {
     ? workingStatus.props
     : null;
 
-  console.log(workingStatusProps);
-
   return (
     <div className="relative">
       <div className="relative overflow-hidden">
@@ -110,7 +108,7 @@ const ImageSection = ({ placeData }: { placeData: Place }) => {
       </div>
       <Button
         className={`absolute bottom-12 left-6 ${
-          workingStatusProps?.children || workingStatus === "Yopiq"
+          workingStatusProps?.children || workingStatus !== "Yopiq"
             ? "bg-green-500"
             : "bg-red-500"
         } text-white px-6 rounded-lg text-medium`}

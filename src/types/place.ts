@@ -68,3 +68,24 @@ interface User {
   lang: string;
   profile_photo_url: string | null;
 }
+
+interface Media {
+  id: number | null;
+  media: string | null;
+  product: number | null;
+}
+
+export interface PlacePromotions {
+  id: number | null;
+  percent: number | null;
+  media: Media[] | null;
+  name: string | null;
+  price: number | null;
+  discount_price: number | null;
+  start_date: string | null;
+  end_date: string | null;
+  created_at: string | null;
+  description: string | null;
+  place: number | null;
+  category: number | null;
+}

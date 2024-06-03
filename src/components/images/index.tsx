@@ -7,7 +7,6 @@ const Images = ({ placeData }: { placeData: Place }) => {
   const { theme } = useTheme();
   const [visible, setVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  console.log(visible);
 
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
@@ -39,20 +38,18 @@ const Images = ({ placeData }: { placeData: Place }) => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col items-stretch justify-center">
       <div className="grid grid-cols-3 gap-4">
         {placeData.images.map((photo: ImageType, index: number) => (
           <div
             key={index}
-            className="w-full flex items-stretch"
+            className="flex items-stretch justify-center"
             onClick={() => handleImageClick(photo.image)}
           >
             <Image
-              width={130}
-              height={130}
               src={photo.image}
               alt={`photo ${index}`}
-              className="w-full h-full object-cover shadow-lg rounded-none cursor-pointer"
+              className="w-full h-[112px] object-cover shadow-lg rounded-none cursor-pointer max-w-[7rem]" // max-w-28 in Tailwind
             />
           </div>
         ))}
@@ -62,7 +59,6 @@ const Images = ({ placeData }: { placeData: Place }) => {
         isOpen={visible}
         onOpenChange={closeHandler}
         size="2xl"
-        hideCloseButton
         placement="center"
         backdrop="blur"
         classNames={{
@@ -71,13 +67,14 @@ const Images = ({ placeData }: { placeData: Place }) => {
       >
         <ModalContent>
           <>
-            <ModalBody>
+            <ModalBody className="flex justify-center items-center">
               {selectedImage && (
                 <Image
                   src={selectedImage}
                   alt="Selected Image"
                   width={500}
                   height={500}
+                  onClick={closeHandler}
                 />
               )}
             </ModalBody>

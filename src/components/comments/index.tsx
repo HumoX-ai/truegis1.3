@@ -56,22 +56,37 @@ const Comments = ({
 
   if (!comments || comments.length === 0) {
     return (
-      <div className="w-full h-full flex flex-col items-center justify-center">
-        <Image
-          src={
-            theme === "dark"
-              ? "/icons/NoMessagesDark.svg"
-              : "/icons/NoMessages.svg"
-          }
-          className="mt-6"
-          alt="no image"
-          width={200}
-          height={200}
-        />
-        <p className="text-blue-500 text-lg px-4 text-center">
-          Hozircha sharhlar yo&#39;q
+      <>
+        <p className="text-gray-500 text-md font-medium pt-6 px-4">
+          Sharh qoldirish
         </p>
-      </div>
+        <div className="mt-2 bg-white dark:bg-[#1C1C1D] px-4 py-5 rounded-xl">
+          <Link href={`/place/${placeData.id}/${userId}/add-comment`}>
+            <Button
+              fullWidth
+              className="py-7 font-medium text-[#007AFF] text-medium bg-[#007AFF]/15"
+            >
+              <SendIcon className="mr-2" /> Sharh yozish
+            </Button>
+          </Link>
+        </div>
+        <div className="w-full h-full flex flex-col items-center justify-center">
+          <Image
+            src={
+              theme === "dark"
+                ? "/icons/NoMessagesDark.svg"
+                : "/icons/NoMessages.svg"
+            }
+            className="mt-6"
+            alt="no image"
+            width={200}
+            height={200}
+          />
+          <p className="text-blue-500 text-lg px-4 text-center">
+            Hozircha sharhlar yo&#39;q
+          </p>
+        </div>
+      </>
     );
   }
 
