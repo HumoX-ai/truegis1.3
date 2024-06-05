@@ -9,7 +9,7 @@ const Loading: React.FC = () => (
       width={200}
       height={200}
       alt="Loading"
-      className="animate-spin"
+      className="animate-pulse"
     />
   </div>
 );

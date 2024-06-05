@@ -1,4 +1,3 @@
-// components/Place.tsx
 import DetailsSection from "@/components/home/DetailsSection";
 import ImageSection from "@/components/home/ImageSection";
 import TabsSection from "@/components/home/TabSection";
@@ -7,6 +6,7 @@ import { notFound } from "next/navigation";
 import { fetchPlaceData } from "@/lib/fetchPlaceData";
 import { fetchPlaceComments } from "@/lib/fetchPlaceComments";
 import { fetchPlacePromotions } from "@/lib/fetchPlacePromotions";
+import LocationPermission from "@/components/LocationPermission";
 
 const Place: React.FC<{ params: { id: string; userId: number } }> = async ({
   params,
@@ -29,6 +29,7 @@ const Place: React.FC<{ params: { id: string; userId: number } }> = async ({
 
   return (
     <div className="mx-auto overflow-hidden md:max-w-md relative">
+      <LocationPermission />
       {placeData ? (
         <>
           <ImageSection placeData={placeData} />

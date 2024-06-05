@@ -62,7 +62,7 @@ function getWorkingStatus(
     </div>
   );
 }
-const GeneralInfo = ({ placeData, }: { placeData: Place }) => {
+const GeneralInfo = ({ placeData }: { placeData: Place }) => {
   const router = useRouter();
 
   const handleMapClick = () => {
@@ -209,15 +209,11 @@ const GeneralInfo = ({ placeData, }: { placeData: Place }) => {
             <div className="flex items-center gap-3">
               <Image src="/icons/time.svg" alt="vaqt" width={40} height={40} />
               <div>
-                <p>
-                  <span>
-                    {getWorkingStatus(
-                      placeData?.work_days || [],
-                      new Date().getDay(),
-                      new Date().getHours()
-                    )}
-                  </span>{" "}
-                </p>
+                {getWorkingStatus(
+                  placeData?.work_days || [],
+                  new Date().getDay(),
+                  new Date().getHours()
+                )}
               </div>
             </div>
             <ChevronRight className="text-gray-500" />

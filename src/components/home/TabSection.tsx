@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Key, useCallback, useMemo } from "react";
 import { Tab, Tabs } from "@nextui-org/react";
 import GeneralInfo from "./GeneralInfo";
 import { Place, PlaceComments, PlacePromotions } from "@/types/place";
@@ -8,6 +8,7 @@ import { ChevronRight } from "lucide-react";
 import Comments from "../comments";
 import Images from "../images";
 import Promotions from "../promotions";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const TabsSection = ({
   placeData,
@@ -20,24 +21,63 @@ const TabsSection = ({
   userId: number;
   placeDataPromotions: PlacePromotions[];
 }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const currentTab = searchParams.get("tab") || "general";
+
+  const handleTabChange = useCallback(
+    (key: Key) => {
+      if (typeof key === "string") {
+        router.push(`/place/${placeData.id}/${userId}?tab=${key}`);
+      }
+    },
+    [router, placeData.id, userId]
+  );
+
   return (
     <div className="mt-9">
-      <Tabs aria-label="Options" fullWidth size="lg">
+      <Tabs
+        aria-label="Options"
+        fullWidth
+        size="lg"
+        selectedKey={currentTab}
+        onSelectionChange={handleTabChange}
+      >
         <Tab key="general" title="Umumiy">
-          <GeneralInfo placeData={placeData} />
+          {useMemo(
+            () => (
+              <GeneralInfo placeData={placeData} />
+            ),
+            [placeData]
+          )}
         </Tab>
         <Tab key="comments" title="Sharhlar">
-          <Comments
-            placeData={placeData}
-            placeComments={placeComments}
-            userId={userId}
-          />
+          {useMemo(
+            () => (
+              <Comments
+                placeData={placeData}
+                placeComments={placeComments}
+                userId={userId}
+              />
+            ),
+            [placeData, placeComments, userId]
+          )}
         </Tab>
         <Tab key="pictures" title="Rasmlar">
-          <Images placeData={placeData} />
+          {useMemo(
+            () => (
+              <Images placeData={placeData} />
+            ),
+            [placeData]
+          )}
         </Tab>
         <Tab key="gift" title="Aksiyalar">
-          <Promotions placeDataPromotions={placeDataPromotions!} />
+          {useMemo(
+            () => (
+              <Promotions placeDataPromotions={placeDataPromotions!} />
+            ),
+            [placeDataPromotions]
+          )}
         </Tab>
       </Tabs>
       <div className="mt-8 bg-white dark:bg-[#1C1C1D] p-4 rounded-xl">
@@ -52,7 +92,7 @@ const TabsSection = ({
               />
               <div>
                 <p className="font-bold">Xatolik topildimi</p>
-                <p className="text-gray-500">Biz bilan bog&#39;laning</p>
+                <span className="text-gray-500">Biz bilan bog&#39;laning</span>
               </div>
             </div>
             <ChevronRight className="text-gray-500" />
