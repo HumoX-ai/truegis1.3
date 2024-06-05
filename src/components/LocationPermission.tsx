@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Loading from "@/components/Loader";
 
 const LocationPermission: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     // Clear the location data from localStorage on every refresh
@@ -50,8 +49,8 @@ const LocationPermission: React.FC = () => {
           console.error("Noma'lum xato yuz berdi.");
         }
 
-        // Foydalanuvchi ruxsat bermadi yoki geolokatsiya ishlamayapti
-        router.replace("/404");
+        // Set the error message if permission is denied or geolocation fails
+        setErrorMessage("Lokatsiyani yoqishingiz kerak");
       }
     };
 
@@ -60,15 +59,25 @@ const LocationPermission: React.FC = () => {
     };
 
     if ("geolocation" in navigator) {
-      getUserLocation();
+      // Start a timeout to show the error message after 10 seconds
+      const timeoutId = setTimeout(() => {
+        setErrorMessage("Lokatsiyani yoqishingiz kerak");
+      }, 10000);
+
+      getUserLocation().then(() => clearTimeout(timeoutId));
     } else {
       console.error("Ushbu brauzer geolocationni qo'llamaydi.");
-      router.replace("/404");
+      setErrorMessage("Ushbu brauzer geolocationni qo'llamaydi.");
     }
-  }, [router]);
+  }, []);
 
   if (loading) {
-    return <Loading />;
+    return (
+      <>
+        <Loading />
+        {errorMessage && <p>{errorMessage}</p>}
+      </>
+    );
   }
 
   return null;
