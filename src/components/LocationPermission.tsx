@@ -52,8 +52,19 @@ const LocationPermission: React.FC = () => {
       }
     };
 
+    const getUserLocation = async () => {
+      const userLocation = localStorage.getItem("userLocation");
+      if (userLocation) {
+        // Foydalanuvchi lokatsiya ma'lumotlari allaqachon saqlangan
+        setLoading(false);
+      } else {
+        // Lokatsiya ma'lumotlari hali saqlanmagan
+        await checkPermission();
+      }
+    };
+
     if ("geolocation" in navigator) {
-      checkPermission();
+      getUserLocation();
     } else {
       console.error("Ushbu brauzer geolocationni qo'llamaydi.");
       router.replace("/404");

@@ -19,6 +19,10 @@ const Convenience: React.FC<ConvenienceProps> = async ({ params }) => {
   const commentCount: PlaceComments[] | null = await fetchPlaceComments(id);
   console.log(data?.about);
 
+  const filteredConveniences = data?.about
+    ? Array.from(new Set(data.about.filter((item) => item !== "bathroom")))
+    : null;
+
   return (
     <div className="bg-[#EFEFF4] dark:bg-[#000] px-4 md:max-w-md">
       <div className="overflow-hidden md:max-w-md relative h-screen">
@@ -34,9 +38,9 @@ const Convenience: React.FC<ConvenienceProps> = async ({ params }) => {
           Joy qulayliklari
         </p>
         <div className="mt-2 bg-white dark:bg-[#1C1C1D] p-4 rounded-xl">
-          {data?.about ? (
+          {filteredConveniences && filteredConveniences.length > 0 ? (
             <>
-              {data?.about?.map((convenience, index) => (
+              {filteredConveniences.map((convenience, index) => (
                 <ConvenienceItem key={index} convenience={convenience} />
               ))}
             </>

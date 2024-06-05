@@ -54,7 +54,7 @@ const Promotions = ({
                       height={40}
                     />
                     <div>
-                      <p>
+                      <div>
                         <p className="font-semibold">Aksiya</p>
                         <span className="text-red-500 line-through">
                           {promotion?.price} so&#39;m
@@ -62,7 +62,7 @@ const Promotions = ({
                         <span className="text-green-500">
                           {promotion?.discount_price} so&#39;m
                         </span>
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>

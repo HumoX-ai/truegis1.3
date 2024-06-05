@@ -1,5 +1,5 @@
 "use client";
-import React, { Key, useCallback, useMemo } from "react";
+import React, { Key, useCallback, useMemo, useState } from "react";
 import { Tab, Tabs } from "@nextui-org/react";
 import GeneralInfo from "./GeneralInfo";
 import { Place, PlaceComments, PlacePromotions } from "@/types/place";
@@ -23,15 +23,15 @@ const TabsSection = ({
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const currentTab = searchParams.get("tab") || "general";
-
+  const [currentTab, setCurrentTab] = useState<string>(
+    searchParams.get("tab") || "general"
+  );
   const handleTabChange = useCallback(
     (key: Key) => {
-      if (typeof key === "string") {
-        router.push(`/place/${placeData.id}/${userId}?tab=${key}`);
-      }
+      setCurrentTab(key as string);
+      router.push(`/place/${placeData.id}/${userId}?tab=${key}`);
     },
-    [router, placeData.id, userId]
+    [placeData.id, userId, router, setCurrentTab]
   );
 
   return (
@@ -44,40 +44,20 @@ const TabsSection = ({
         onSelectionChange={handleTabChange}
       >
         <Tab key="general" title="Umumiy">
-          {useMemo(
-            () => (
-              <GeneralInfo placeData={placeData} />
-            ),
-            [placeData]
-          )}
+          <GeneralInfo placeData={placeData} />
         </Tab>
         <Tab key="comments" title="Sharhlar">
-          {useMemo(
-            () => (
-              <Comments
-                placeData={placeData}
-                placeComments={placeComments}
-                userId={userId}
-              />
-            ),
-            [placeData, placeComments, userId]
-          )}
+          <Comments
+            placeData={placeData}
+            placeComments={placeComments}
+            userId={userId}
+          />
         </Tab>
         <Tab key="pictures" title="Rasmlar">
-          {useMemo(
-            () => (
-              <Images placeData={placeData} />
-            ),
-            [placeData]
-          )}
+          <Images placeData={placeData} />
         </Tab>
         <Tab key="gift" title="Aksiyalar">
-          {useMemo(
-            () => (
-              <Promotions placeDataPromotions={placeDataPromotions!} />
-            ),
-            [placeDataPromotions]
-          )}
+          <Promotions placeDataPromotions={placeDataPromotions} />
         </Tab>
       </Tabs>
       <div className="mt-8 bg-white dark:bg-[#1C1C1D] p-4 rounded-xl">
