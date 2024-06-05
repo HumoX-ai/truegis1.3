@@ -9,6 +9,9 @@ const LocationPermission: React.FC = () => {
   const router = useRouter();
 
   useEffect(() => {
+    // Clear the location data from localStorage on every refresh
+    localStorage.removeItem("userLocation");
+
     const checkPermission = async () => {
       try {
         const position = await new Promise<GeolocationPosition>(
@@ -22,7 +25,7 @@ const LocationPermission: React.FC = () => {
         const { latitude, longitude } = position.coords;
         console.log(`User's location: ${latitude}, ${longitude}`);
 
-        // Foydalanuvchi ruxsat berdi, hech narsa qilishimiz shart emas
+        // Save the user's location in localStorage (optional)
         localStorage.setItem(
           "userLocation",
           JSON.stringify({ latitude, longitude })
@@ -53,14 +56,7 @@ const LocationPermission: React.FC = () => {
     };
 
     const getUserLocation = async () => {
-      const userLocation = localStorage.getItem("userLocation");
-      if (userLocation) {
-        // Foydalanuvchi lokatsiya ma'lumotlari allaqachon saqlangan
-        setLoading(false);
-      } else {
-        // Lokatsiya ma'lumotlari hali saqlanmagan
-        await checkPermission();
-      }
+      await checkPermission();
     };
 
     if ("geolocation" in navigator) {
