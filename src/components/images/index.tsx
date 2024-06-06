@@ -49,7 +49,7 @@ const Images = ({ placeData }: { placeData: Place }) => {
             <Image
               src={photo.image}
               alt={`photo ${index}`}
-              className="w-full h-[112px] object-cover shadow-lg rounded-none cursor-pointer max-w-[7rem]" // max-w-28 in Tailwind
+              className="w-full h-[112px] object-cover shadow-lg rounded-none cursor-pointer max-w-[7rem]"
             />
           </div>
         ))}

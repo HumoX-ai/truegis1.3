@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { Place } from "@/types/place";
@@ -64,6 +64,10 @@ function getWorkingStatus(
 }
 const GeneralInfo = ({ placeData }: { placeData: Place }) => {
   const router = useRouter();
+  const [taxiInfo, setTaxiInfo] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  console.log(taxiInfo);
 
   const handleMapClick = () => {
     if (placeData.longitude && placeData.latitude) {
@@ -101,7 +105,42 @@ const GeneralInfo = ({ placeData }: { placeData: Place }) => {
     },
   ];
 
-  console.log(placeData);
+  const getUserLong = localStorage.getItem("userLocation");
+  const userLocation = JSON.parse(getUserLong as string);
+  const userLongitude = userLocation?.longitude;
+  const userLatitude = userLocation?.latitude;
+
+  const placeLongitute = placeData?.longitude;
+  const placeLatitude = placeData?.latitude;
+
+  useEffect(() => {
+    const fetchTaxiInfo = async () => {
+      if (userLongitude && userLatitude && placeLongitute && placeLatitude) {
+        try {
+          const response = await fetch(
+            `https://taxi-routeinfo.taxi.yandex.net/taxi_info?rll=${userLongitude},${userLatitude}~${placeLongitute},${placeLatitude}&clid=ak231124&apikey=SjFZnMpqqiBMsjOthnPlbZVOGvrTJkFAdArwsnr&class=business`,
+            {
+              headers: {
+                Accept: "application/json",
+              },
+            }
+          );
+          const data = await response.json();
+          setTaxiInfo(data);
+        } catch (error) {
+          console.error("Error fetching taxi info:", error);
+        }
+        setLoading(false);
+      }
+    };
+
+    fetchTaxiInfo();
+  }, [userLongitude, userLatitude, placeLongitute, placeLatitude]);
+
+  const handleTaxiClick = () => {
+    const yandexTaxiUrl = `yandextaxi://route?start-lat=${userLatitude}&start-lon=${userLongitude}&end-lat=${placeLatitude}&end-lon=${placeLongitute}&lang=uz`;
+    window.location.href = yandexTaxiUrl;
+  };
 
   return (
     <>
@@ -134,12 +173,25 @@ const GeneralInfo = ({ placeData }: { placeData: Place }) => {
         </div>
         <Divider />
         {/* Manzilgacha Yandex-taxi */}
-        <div className="mb-2 mt-2 flex items-center justify-between">
+        <div
+          className="mb-2 mt-2 flex items-center justify-between"
+          onClick={handleTaxiClick}
+        >
           <div className="flex items-center gap-3">
             <Image src="/icons/taxi.svg" alt="taxi" width={40} height={40} />
             <div>
               <p className="font-bold">Manzilgacha Yandex-taxi</p>
-              <p className="text-gray-500">4km • 15-20 min • 20,000 so&#39;m</p>
+              {loading ? (
+                <p className="text-gray-500">Yuklanmoqda...</p>
+              ) : taxiInfo ? (
+                <p className="text-gray-500">
+                  {taxiInfo.distance?.toFixed(0) / 1000} km •{" "}
+                  {Math.round(taxiInfo.options[0].waiting_time.toFixed(2) / 60)}{" "}
+                  soat • {taxiInfo.options[0].price} so&#39;m
+                </p>
+              ) : (
+                <p className="text-red-500">Ma&#39;lumot yuklanmadi</p>
+              )}
             </div>
           </div>
           <ChevronRight className="text-gray-500" />
